@@ -1,0 +1,5 @@
+Modules/
+Help/
+Scripts/
+npm_bash_completion.sh
+pandoc_bash_completion.sh
