@@ -70,14 +70,17 @@ https://github.com/lifepillar/vim-solarized8
 }
 Set-Alias -Name yob -Value Set-ColorScheme
 
-#
 If ($host.Name -eq 'ConsoleHost') {
-    Import-WslCommand "less", "ls", "grep", "tree"
+    # Remove cache if bash complete changes.
+    #   $Env:APPDATA\PowerShell WSL Interop\WslCompletionFunctions
+    [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
     $WslDefaultParameterValues = @{
         less = '-R --ignore-case'
         ls = '-AFh --color=auto --group-directories-first'
         grep = '--color=auto'
     }
+    Import-WslCommand "less", "ls", "grep", "tree"
+
     $env:PROFILEDIR = (Get-Item $PROFILE).Directory
 }
 
