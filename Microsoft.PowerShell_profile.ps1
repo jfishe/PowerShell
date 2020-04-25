@@ -5,6 +5,7 @@ If ($host.Name -eq 'ConsoleHost') {
         -ShowToolTips
     # Disabled by default in vi mode
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
+    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
     # History
     Set-PSReadLineOption -HistoryNoDuplicates `
         -HistorySearchCursorMovesToEnd `
