@@ -5,7 +5,11 @@ If ($host.Name -eq 'ConsoleHost') {
         -ShowToolTips
     # Disabled by default in vi mode
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
-    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    # Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    Set-PSReadLineKeyHandler -Key RightArrow -Function ForwardChar
+    Set-PSReadLineKeyHandler -Key LeftArrow -Function BackwardChar
+    # ANSI terminals interpret Ctrl+Space as Ctrl+@
+    Set-PSReadLineKeyHandler -Chord 'Ctrl+@' -Function MenuComplete
     # History
     Set-PSReadLineOption -HistoryNoDuplicates `
         -HistorySearchCursorMovesToEnd `
