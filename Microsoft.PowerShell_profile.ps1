@@ -24,17 +24,17 @@ Set-Alias -Name which -Value _which
 
 Function Set-ColorScheme {
 
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact='Low')]
+    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
     param()
     begin {
         $colortool = Get-Command -Name "colortool"
         $ColorSchemes = $colortool.Path |
-            ForEach-Object -Process {(Get-Item $_).Directory} |
-            ForEach-Object -Process {Get-ChildItem $_ -Name "schemes/solarized.*"}
+        ForEach-Object -Process { (Get-Item $_).Directory } |
+        ForEach-Object -Process { Get-ChildItem $_ -Name "schemes/solarized.*" }
         $colorscheme = [int]$(($env:COLORSCHEME -eq 0))
         $ConfirmMessage = @("Change console color scheme to",
             $ColorSchemes[$colorscheme]
-            )
+        )
     }
     process {
         if ($PSCmdlet.ShouldProcess($ConfirmMessage)) {
@@ -42,36 +42,36 @@ Function Set-ColorScheme {
             & $colortool --quiet $ColorSchemes[$env:COLORSCHEME]
         }
     }
-<#
-.SYNOPSIS
+    <#
+    .SYNOPSIS
 
-Toggle the console color scheme between solarized dark and light.
+    Toggle the console color scheme between solarized dark and light.
 
-.DESCRIPTION
+    .DESCRIPTION
 
-Windows Console ColorTool should be in $env:PATH.
+    Windows Console ColorTool should be in $env:PATH.
 
-The schemes\ folder should be in the same directory as ColorTool.exe.
+    The schemes\ folder should be in the same directory as ColorTool.exe.
 
-The color schemes, based on vim-solarized8, were created using terminal.sexy.
+    The color schemes, based on vim-solarized8, were created using terminal.sexy.
 
-.OUTPUTS
+    .OUTPUTS
 
-ColorTool.exe --quiet [[solarized.dark.itermcolors]|[solarized.light].itermcolors]
+    ColorTool.exe --quiet [[solarized.dark.itermcolors]|[solarized.light].itermcolors]
 
-.LINK
+    .LINK
 
-https://github.com/Microsoft/console/tree/master/tools/ColorTool
+    https://github.com/Microsoft/console/tree/master/tools/ColorTool
 
-.LINK
+    .LINK
 
-https://terminal.sexy/
+    https://terminal.sexy/
 
-.LINK
+    .LINK
 
-https://github.com/lifepillar/vim-solarized8
+    https://github.com/lifepillar/vim-solarized8
 
-#>
+    #>
 }
 Set-Alias -Name yob -Value Set-ColorScheme
 
@@ -81,7 +81,7 @@ If ($host.Name -eq 'ConsoleHost') {
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseDeclaredVarsMoreThanAssigments', '')]
     $WslDefaultParameterValues = @{
         less = '-R --ignore-case'
-        ls = '-AFh --color=auto --group-directories-first'
+        ls   = '-AFh --color=auto --group-directories-first'
         grep = '--color=auto'
     }
     Import-WslCommand "less", "ls", "grep", "tree"
