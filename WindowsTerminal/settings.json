@@ -30,9 +30,6 @@
             // Put settings here that you want to apply to all profiles.
             "fontFace": "Cascadia Code PL",
             "colorScheme": "solarized.light",
-            "cursorColor": "#586E75",
-            // "colorScheme": "solarized.dark",
-            // "cursorColor": "#93A1A1",
             "cursorShape": "bar"
         },
         "list":
@@ -101,6 +98,8 @@
     "schemes": [
         {
             "name": "solarized.dark",
+            "cursorColor": "#93A1A1",
+            "selectionBackground": "#93A1A1",
             "foreground": "#93A1A1",
             "background": "#002B36",
             "black": "#002B36",
@@ -122,6 +121,8 @@
         },
         {
             "name": "solarized.light",
+            "cursorColor": "#586E75",
+            "selectionBackground": "#586E75",
             "foreground": "#586E75",
             "background": "#FDF6E3",
             "black": "#FDF6E3",
