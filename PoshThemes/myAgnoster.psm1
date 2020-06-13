@@ -33,9 +33,9 @@ function Write-Theme {
     }
 
     # PowerShell PSEdition PSVersion
-    $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol)" -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.SessionInfoForegroundColor
-    $prompt += Write-Prompt -Object "$($PSVersionTable.PSEdition) $($PSVersionTable.PSVersion)" -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.SessionInfoForegroundColor
-    $lastColor = $sl.Colors.SessionInfoForegroundColor
+    $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol)" -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.PromptHighlightColor
+    $prompt += Write-Prompt -Object "$($PSVersionTable.PSEdition) $($PSVersionTable.PSVersion)" -ForegroundColor $sl.Colors.SessionInfoBackgroundColor -BackgroundColor $sl.Colors.PromptHighlightColor
+    $lastColor = $sl.Colors.PromptHighlightColor
 
     if (Test-VirtualEnv) {
         $prompt += Write-Prompt -Object "$($sl.PromptSymbols.SegmentForwardSymbol)" -ForegroundColor $lastColor -BackgroundColor $sl.Colors.VirtualEnvBackgroundColor
@@ -84,5 +84,5 @@ $sl.Colors.PromptHighlightColor = [ConsoleColor]::DarkBlue
 $sl.Colors.GitForegroundColor = [ConsoleColor]::Black
 $sl.Colors.WithForegroundColor = [ConsoleColor]::Black
 $sl.Colors.WithBackgroundColor = [ConsoleColor]::DarkRed
-$sl.Colors.VirtualEnvBackgroundColor = [ConsoleColor]::Red
+$sl.Colors.VirtualEnvBackgroundColor = [ConsoleColor]::Cyan
 $sl.Colors.VirtualEnvForegroundColor = [ConsoleColor]::Black
