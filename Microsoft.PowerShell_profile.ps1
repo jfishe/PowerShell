@@ -15,12 +15,21 @@ If ($host.Name -eq 'ConsoleHost') {
         -HistorySearchCursorMovesToEnd `
         -HistorySaveStyle SaveIncrementally `
         -MaximumHistoryCount 4000
+    # Colors
+    Set-PSReadLineOption -Colors @{ Prediction = "`e[95m" } -ErrorAction SilentlyContinue
+
+    Function _history {
+        Get-Content (Get-PSReadLineOption).HistorySavePath | less -N
+    }
+    Set-Alias -Name history -Value _history `
+        -Description "Show PSReadline command history file with pager by less"
 }
 
 Function _which {
     Get-Command -All $Args[0] -ErrorAction SilentlyContinue | Format-List
 }
-Set-Alias -Name which -Value _which
+Set-Alias -Name which -Value _which `
+    -Description "Get-Command -All <command>"
 
 Function Set-ColorScheme {
 
