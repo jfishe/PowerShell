@@ -23,6 +23,9 @@ If ($host.Name -eq 'ConsoleHost') {
     }
     Set-Alias -Name history -Value _history `
         -Description "Show PSReadline command history file with pager by less"
+
+    # Default Yellow/Cyan is low contrast
+    $Host.PrivateData.ProgressForegroundColor = [ConsoleColor]::Red
 }
 
 Function _which {
