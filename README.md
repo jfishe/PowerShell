@@ -10,8 +10,12 @@ install the modules in [`profile.Depend.psd1`](profile.Depend.psd1).
 $ProfileDir = Split-Path "$PROFILE"
 git clone https://github.com/jfishe/PowerShell.git "$ProfileDir"
 
-pushd $ProfileDir
-.\Install-Profile.ps1
+if ($?) {
+    pushd $ProfileDir
+    .\Install-Profile.ps1
+} else {
+    Write-Error -Message "Failed to install $ProfileDir"
+}
 ```
 
 ## PowerShell Core Installation and Update
