@@ -31,3 +31,22 @@ choco install powershell-core `
                       "' `
   --packageparameters '"/CleanUpPath"'
 ```
+
+## Windows Terminal
+
+### Windows Terminal Preview
+
+```powershell
+$PreviewSettingsJSON = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminalPreview_*\LocalState\settings.json"
+```
+
+### Windows Terminal Release
+
+```powershell
+$SettingsJSON = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json"
+```
+
+[WindowsTerminal\Install-WindowsTerminalSettings.ps1](WindowsTerminal\Install-WindowsTerminalSettings.ps1)
+links `$SettingsJSON` to
+[WindowsTerminal\settings.json](WindowsTerminal\settings.json), saving the
+current `settings.json` as `settings.json.bak`.
