@@ -8,7 +8,7 @@
 
 .COMPANYNAME jdfenw@gmail.com
 
-.COPYRIGHT John D. Fisher, MIT License
+.COPYRIGHT Copyright (c) 2020 John D. Fisher
 
 .TAGS
 
@@ -40,8 +40,13 @@
 [CmdletBinding()]
 Param()
 
-$Destination = (Get-Item "${env:LOCALAPPDATA}\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json" -ErrorAction Stop).FullName
+$Destination = Get-ChildItem `
+    "${env:LOCALAPPDATA}\Packages\Microsoft.WindowsTerminal_*\" `
+    -ErrorAction Stop
+$Destination = "$Destination\LocalState\settings.json"
+
 $Backup = $Destination -replace "`.json$", '.json.bak'
+
 $Source = "$PSScriptRoot\settings.json"
 
 Copy-Item "$Destination" "$Backup"
