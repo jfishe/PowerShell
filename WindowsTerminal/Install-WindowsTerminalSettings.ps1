@@ -1,4 +1,3 @@
-
 <#PSScriptInfo
 
 .VERSION 1.0
@@ -9,13 +8,13 @@
 
 .COMPANYNAME jdfenw@gmail.com
 
-.COPYRIGHT John D. Fisher All Rights Reserved
+.COPYRIGHT John D. Fisher, MIT License
 
 .TAGS
 
-.LICENSEURI
+.LICENSEURI https://github.com/jfishe/PowerShell/blob/master/LICENSE
 
-.PROJECTURI
+.PROJECTURI https://github.com/jfishe/PowerShell
 
 .ICONURI
 
@@ -41,7 +40,7 @@
 [CmdletBinding()]
 Param()
 
-$Destination = "${env:LOCALAPPDATA}\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$Destination = (Get-Item "${env:LOCALAPPDATA}\Packages\Microsoft.WindowsTerminal_*\LocalState\settings.json" -ErrorAction Stop).FullName
 $Backup = $Destination -replace "`.json$", '.json.bak'
 $Source = "$PSScriptRoot\settings.json"
 
