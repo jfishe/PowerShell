@@ -31,7 +31,7 @@
             // "fontFace": "Cascadia Code PL",
             "fontFace": "CaskaydiaCove NF",
             "colorScheme": "solarized8.light",
-            "cursorShape": "bar"
+            "cursorShape": "emptyBox"
         },
         "list":
         [
