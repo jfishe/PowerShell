@@ -2,20 +2,21 @@
 If ($host.Name -eq 'ConsoleHost') {
     Set-PSReadlineOption -EditMode vi -BellStyle None `
         -ViModeIndicator Cursor `
-        -ShowToolTips
+        -ShowToolTips `
+        -PromptText "$([char]::ConvertFromUtf32(0x279C)) "
+
     # Disabled by default in vi mode
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
-    # Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
-    Set-PSReadLineKeyHandler -Key RightArrow -Function ForwardChar
-    Set-PSReadLineKeyHandler -Key LeftArrow -Function BackwardChar
-    # ANSI terminals interpret Ctrl+Space as Ctrl+@
-    Set-PSReadLineKeyHandler -Chord 'Ctrl+@' -Function MenuComplete
+    Set-PSReadLineKeyHandler -Key 'Ctrl+Spacebar' -Function MenuComplete
+
     # History
     Set-PSReadLineOption -HistoryNoDuplicates `
         -HistorySearchCursorMovesToEnd `
         -HistorySaveStyle SaveIncrementally `
         -MaximumHistoryCount 4000
-    # Colors
+
+    # Prediction
+    Set-PSReadLineOption -PredictionSource History
     Set-PSReadLineOption -Colors @{ Prediction = "`e[95m" } -ErrorAction SilentlyContinue
 
     Function _history {
@@ -96,7 +97,7 @@ If ($host.Name -eq 'ConsoleHost') {
         ls   = '-AFh --color=auto --group-directories-first'
         grep = '--color=auto'
     }
-    Import-WslCommand "less", "ls", "grep", "tree"
+    Import-WslCommand "less", "ls", "grep", "tree", "diff"
 
     $env:PROFILEDIR = (Get-Item $PROFILE).Directory
 }
