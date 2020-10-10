@@ -3,7 +3,6 @@ If ($host.Name -eq 'ConsoleHost') {
     Set-PSReadlineOption -EditMode vi -BellStyle None `
         -ViModeIndicator Cursor `
         -ShowToolTips `
-        -PromptText "$([char]::ConvertFromUtf32(0x279C)) "
 
     # Disabled by default in vi mode
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
@@ -106,4 +105,8 @@ If ($host.Name -eq 'ConsoleHost') {
 # 400 msec
 If ($host.Name -eq 'ConsoleHost') {
     . $PSScriptRoot\posh-gitrc.ps1
+    Set-PSReadLineOption -ExtraPromptLineCount 1
+    Set-PSReadLineOption -PromptText "$([char]::ConvertFromUtf32(0x279C)) "
+
+    Import-Module VimTabCompletion
 }
