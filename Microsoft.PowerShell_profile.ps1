@@ -1,22 +1,36 @@
 # PSReadline Settings
 If ($host.Name -eq 'ConsoleHost') {
-    Set-PSReadlineOption -EditMode vi -BellStyle None `
-        -ViModeIndicator Cursor `
-        -ShowToolTips `
+    $PSReadlineOptions = @{
+        EditMode = "vi"
+        BellStyle = "None"
+        ViModeIndicator = "Cursor"
+        ShowToolTips = $true
 
+        # History
+        HistoryNoDuplicates = $true
+        HistorySearchCursorMovesToEnd = $true
+        HistorySaveStyle = "SaveIncrementally"
+        MaximumHistoryCount = 4000
+
+        # Prediction
+        PredictionSource = "History"
+        PredictionViewStyle = "ListView"
+
+        # Oh-My-Posh prompt
+        ExtraPromptLineCount = 1
+        PromptText = "$([char]::ConvertFromUtf32(0x279C)) " # ➜
+
+        # Colors = @{
+        #     "InlinePredictionColor" = "`e[95m"
+        #     "ListPredictionColor" = "`e[95m"
+        #     "ListPredictionSelectedColor" = "`e[48;95m"
+        # }
+    }
+    Set-PSReadLineOption @PSReadlineOptions
     # Disabled by default in vi mode
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
     Set-PSReadLineKeyHandler -Key 'Ctrl+Spacebar' -Function MenuComplete
 
-    # History
-    Set-PSReadLineOption -HistoryNoDuplicates `
-        -HistorySearchCursorMovesToEnd `
-        -HistorySaveStyle SaveIncrementally `
-        -MaximumHistoryCount 4000
-
-    # Prediction
-    Set-PSReadLineOption -PredictionSource History
-    Set-PSReadLineOption -Colors @{ Prediction = "`e[95m" } -ErrorAction SilentlyContinue
 
     Function _history {
         Get-Content (Get-PSReadLineOption).HistorySavePath | less -N
@@ -105,8 +119,6 @@ If ($host.Name -eq 'ConsoleHost') {
 # 400 msec
 If ($host.Name -eq 'ConsoleHost') {
     . $PSScriptRoot\posh-gitrc.ps1
-    Set-PSReadLineOption -ExtraPromptLineCount 1
-    Set-PSReadLineOption -PromptText "$([char]::ConvertFromUtf32(0x279C)) "
 
     Import-Module VimTabCompletion
     Import-Module DirColors
