@@ -8,4 +8,5 @@
     PSScriptAnalyzer = 'latest'
     WslInterop       = 'latest'
     PSReadLine       = 'latest'
+    DirColors        = 'latest'
 }

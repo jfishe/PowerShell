@@ -109,4 +109,6 @@ If ($host.Name -eq 'ConsoleHost') {
     Set-PSReadLineOption -PromptText "$([char]::ConvertFromUtf32(0x279C)) "
 
     Import-Module VimTabCompletion
+    Import-Module DirColors
+    Update-DirColors ~\.dircolors
 }
