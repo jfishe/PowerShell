@@ -30,12 +30,14 @@
             // Put settings here that you want to apply to all profiles.
             // "fontFace": "Cascadia Code PL",
             "fontFace": "CaskaydiaCove NF",
+            "fontSize": 11,
             "colorScheme": "solarized8.light",
             "cursorShape": "emptyBox"
         },
         "list":
         [
             {
+
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
@@ -216,6 +218,7 @@
         // - "split": "auto" makes this pane open in the direction that provides the most surface area.
         // - "splitMode": "duplicate" makes the new pane use the focused pane's profile.
         // To learn more about panes, visit https://aka.ms/terminal-panes
+        { "command": "commandPalette", "keys":"ctrl+shift+p" },
         { "command": { "action": "splitPane", "split": "auto", "splitMode": "duplicate" }, "keys": "alt+shift+d" }
     ]
 }
