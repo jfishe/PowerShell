@@ -20,4 +20,4 @@
 
 Import-Module posh-git
 Import-Module oh-my-posh
-Set-Theme myAgnoster
+Set-PoshPrompt -Theme iterm2
