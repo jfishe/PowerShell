@@ -118,8 +118,7 @@ If ($host.Name -eq 'ConsoleHost') {
 # Import-Module posh-git and configure prompt.
 # 400 msec
 If ($host.Name -eq 'ConsoleHost') {
-    . $PSScriptRoot\posh-gitrc.ps1
-
+    (@(&"C:/Users/jdfen/AppData/Local/Programs/oh-my-posh/bin/oh-my-posh.exe" --print-init --shell=pwsh --config="C:\Users\jdfen\iterm2.omp.json") -join "`n") | Invoke-Expression
     Import-Module VimTabCompletion
     Import-Module DirColors
     Update-DirColors ~\.dircolors
