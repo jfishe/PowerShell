@@ -115,11 +115,12 @@ If ($host.Name -eq 'ConsoleHost') {
     $env:PROFILEDIR = (Get-Item $PROFILE).Directory
 }
 
-# Import-Module posh-git and configure prompt.
-# 400 msec
 If ($host.Name -eq 'ConsoleHost') {
     (@(&"C:/Users/jdfen/AppData/Local/Programs/oh-my-posh/bin/oh-my-posh.exe" --print-init --shell=pwsh --config="C:\Users\jdfen\iterm2.omp.json") -join "`n") | Invoke-Expression
     Import-Module VimTabCompletion
     Import-Module DirColors
     Update-DirColors ~\.dircolors
+    Import-Module posh-git
+    Invoke-Expression (&starship init powershell)
 }
+
