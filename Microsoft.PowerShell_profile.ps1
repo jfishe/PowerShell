@@ -1,24 +1,24 @@
 # PSReadline Settings
 If ($host.Name -eq 'ConsoleHost') {
     $PSReadlineOptions = @{
-        EditMode = "vi"
-        BellStyle = "None"
-        ViModeIndicator = "Cursor"
-        ShowToolTips = $true
+        EditMode                      = "vi"
+        BellStyle                     = "None"
+        ViModeIndicator               = "Cursor"
+        ShowToolTips                  = $true
 
         # History
-        HistoryNoDuplicates = $true
+        HistoryNoDuplicates           = $true
         HistorySearchCursorMovesToEnd = $true
-        HistorySaveStyle = "SaveIncrementally"
-        MaximumHistoryCount = 4000
+        HistorySaveStyle              = "SaveIncrementally"
+        MaximumHistoryCount           = 4000
 
         # Prediction
-        PredictionSource = "History"
-        PredictionViewStyle = "ListView"
+        PredictionSource              = "History"
+        PredictionViewStyle           = "ListView"
 
         # Oh-My-Posh prompt
-        ExtraPromptLineCount = 1
-        PromptText = "$([char]::ConvertFromUtf32(0x279C)) " # ➜
+        ExtraPromptLineCount          = 1
+        PromptText                    = "$([char]::ConvertFromUtf32(0x279C)) " # ➜
 
         # Colors = @{
         #     "InlinePredictionColor" = "`e[95m"
@@ -116,11 +116,9 @@ If ($host.Name -eq 'ConsoleHost') {
 }
 
 If ($host.Name -eq 'ConsoleHost') {
-    (@(&"C:/Users/jdfen/AppData/Local/Programs/oh-my-posh/bin/oh-my-posh.exe" --print-init --shell=pwsh --config="C:\Users\jdfen\iterm2.omp.json") -join "`n") | Invoke-Expression
     Import-Module VimTabCompletion
     Import-Module DirColors
     Update-DirColors ~\.dircolors
     Import-Module posh-git
     Invoke-Expression (&starship init powershell)
 }
-
