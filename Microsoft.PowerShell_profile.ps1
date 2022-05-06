@@ -48,58 +48,6 @@ Function _which {
 Set-Alias -Name which -Value _which `
     -Description "Get-Command -All <command>"
 
-Function Set-ColorScheme {
-
-    [CmdletBinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
-    param()
-    begin {
-        $colortool = Get-Command -Name "colortool"
-        $ColorSchemes = $colortool.Path |
-        ForEach-Object -Process { (Get-Item $_).Directory } |
-        ForEach-Object -Process { Get-ChildItem $_ -Name "schemes/solarized.*" }
-        $colorscheme = [int]$(($env:COLORSCHEME -eq 0))
-        $ConfirmMessage = @("Change console color scheme to",
-            $ColorSchemes[$colorscheme]
-        )
-    }
-    process {
-        if ($PSCmdlet.ShouldProcess($ConfirmMessage)) {
-            $env:COLORSCHEME = $colorscheme
-            & $colortool --quiet $ColorSchemes[$env:COLORSCHEME]
-        }
-    }
-    <#
-    .SYNOPSIS
-
-    Toggle the console color scheme between solarized dark and light.
-
-    .DESCRIPTION
-
-    Windows Console ColorTool should be in $env:PATH.
-
-    The schemes\ folder should be in the same directory as ColorTool.exe.
-
-    The color schemes, based on vim-solarized8, were created using terminal.sexy.
-
-    .OUTPUTS
-
-    ColorTool.exe --quiet [[solarized.dark.itermcolors]|[solarized.light].itermcolors]
-
-    .LINK
-
-    https://github.com/Microsoft/console/tree/master/tools/ColorTool
-
-    .LINK
-
-    https://terminal.sexy/
-
-    .LINK
-
-    https://github.com/lifepillar/vim-solarized8
-
-    #>
-}
-Set-Alias -Name yob -Value Set-ColorScheme
 
 If ($host.Name -eq 'ConsoleHost') {
     # Remove cache if bash complete changes.
@@ -112,7 +60,7 @@ If ($host.Name -eq 'ConsoleHost') {
     }
     Import-WslCommand "less", "ls", "grep", "tree", "diff"
 
-    $env:PROFILEDIR = (Get-Item $PROFILE).Directory
+    $env:PROFILEDIR = Split-Path $PROFILE
 }
 
 If ($host.Name -eq 'ConsoleHost') {
