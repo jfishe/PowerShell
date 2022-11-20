@@ -68,5 +68,8 @@ If ($host.Name -eq 'ConsoleHost') {
     Import-Module DirColors
     Update-DirColors ~\.dircolors
     Import-Module posh-git
-    Invoke-Expression (&starship init powershell)
+    # Starship-profile is installation specific, so run once:
+    # & starship init powershell --print-full-init |
+    # Out-File -Encoding utf8 -Path $env:PROFILEDIR\starship-profile.ps1
+    . $env:PROFILEDIR/starship-profile
 }
