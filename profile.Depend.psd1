@@ -4,7 +4,6 @@
 	Target = 'CurrentUser'
     }
     'posh-git'       = 'latest'
-    'oh-my-posh'     = 'latest'
     Plaster          = 'latest'
     PSScriptAnalyzer = 'latest'
     WslInterop       = 'latest'
