@@ -67,15 +67,25 @@ If ($host.Name -eq 'ConsoleHost') {
         grep = '--color=auto'
     }
     Import-WslCommand "less", "ls", "grep", "tree", "diff"
-
-    $env:PROFILEDIR = Split-Path $PROFILE
 }
 
 If ($host.Name -eq 'ConsoleHost') {
+    $env:PROFILEDIR = Split-Path $PROFILE
+
     Import-Module -Name VimTabCompletion, DirColors, posh-git
     Update-DirColors ~\.dircolors
+
     # Starship-profile is installation specific, so run once:
     # & starship init powershell --print-full-init |
     # Out-File -Encoding utf8 -Path $env:PROFILEDIR\starship-profile.ps1
     . $env:PROFILEDIR/starship-profile
+
+    # PSBashCompletions
+    if (($Null -ne (Get-Command bash -ErrorAction Ignore)) -or ($Null -ne (Get-Command git -ErrorAction Ignore))) {
+        Import-Module PSBashCompletions
+        $completionPath = "$env:PROFILEDIR/bash-completion"
+        Register-BashArgumentCompleter pandoc "$completionPath/pandoc-completion.sh"
+        Register-BashArgumentCompleter pipx "$completionPath/pipx_completion.sh"
+    }
 }
+

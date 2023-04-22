@@ -1,18 +1,19 @@
 @{
-    PSDependOptions  = @{
+    PSDependOptions   = @{
         AddToPath = $false
-	Target = 'CurrentUser'
+        Target    = 'CurrentUser'
     }
-    'posh-git'       = 'latest'
-    Plaster          = 'latest'
-    PSScriptAnalyzer = 'latest'
-    WslInterop       = 'latest'
-    PSReadLine       = 'latest'
-    DirColors        = 'latest'
-    VimTabCompletion = @{
-	Parameters = @{
-		AllowClobber = $true
-	}
-	VimTabCompletion = 'latest'
+    'posh-git'        = 'latest'
+    DirColors         = 'latest'
+    Plaster           = 'latest'
+    PSBashCompletions = 'latest'
+    PSScriptAnalyzer  = 'latest'
+    PSReadLine        = 'latest'
+    VimTabCompletion  = @{
+        Parameters       = @{
+            AllowClobber = $true
+        }
+        VimTabCompletion = 'latest'
     }
+    WslInterop        = 'latest'
 }
