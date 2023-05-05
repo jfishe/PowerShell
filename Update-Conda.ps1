@@ -49,7 +49,7 @@ $CondaEnvironment = (
 
 foreach ($Item in $CondaEnvironment) {
     Write-Verbose "conda update $($Item.Value)"
-    Invoke-Conda update $Item.Value
+    Invoke-Conda update $Item.Value -y
 }
 
 if ($Null -ne (Get-Command condax -ErrorAction Ignore)) {
