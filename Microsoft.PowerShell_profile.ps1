@@ -79,6 +79,7 @@ If ($host.Name -eq 'ConsoleHost') {
     # & starship init powershell --print-full-init |
     # Out-File -Encoding utf8 -Path $env:PROFILEDIR\starship-profile.ps1
     . $env:PROFILEDIR/starship-profile
+    . $env:PROFILEDIR/uvShellCompletion
 
     # PSBashCompletions
     if (($Null -ne (Get-Command bash -ErrorAction Ignore)) -or ($Null -ne (Get-Command git -ErrorAction Ignore))) {

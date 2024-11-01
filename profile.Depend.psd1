@@ -16,4 +16,5 @@
         VimTabCompletion = 'latest'
     }
     WslInterop        = 'latest'
+    WSLTabCompletion  = 'latest'
 }
