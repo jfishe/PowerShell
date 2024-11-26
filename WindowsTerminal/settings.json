@@ -44,12 +44,6 @@
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
-                "adjustIndistinguishableColors": "always",
-                "cursorShape": "emptyBox",
-                "font":
-                {
-                    "face": "CaskaydiaCove NF"
-                },
                 "guid": "{7f586916-8357-53d4-bb2b-ca96f639898a}",
                 "hidden": false,
                 "name": "Pengwin",
