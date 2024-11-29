@@ -1,3 +1,0 @@
---exclude=Modules/*/*.json
---exclude=Modules/*/*.*xml*
---exclude=Help
