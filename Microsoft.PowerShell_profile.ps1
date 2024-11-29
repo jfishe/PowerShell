@@ -23,27 +23,7 @@ If ($host.Name -eq 'ConsoleHost') {
     # Default Yellow/Cyan is low contrast
     $Host.PrivateData.ProgressForegroundColor = [ConsoleColor]::Red
 
-    # condax completion
-    # Modified from `condax --show-completion`
-    # Import-Module PSReadLine
-    # Set-PSReadLineKeyHandler -Chord Tab -Function MenuComplete
-    $scriptblock = {
-        param($wordToComplete, $commandAst, $cursorPosition)
-        $Env:_CONDAX_COMPLETE = "complete_powershell"
-        $Env:_TYPER_COMPLETE_ARGS = $commandAst.ToString()
-        $Env:_TYPER_COMPLETE_WORD_TO_COMPLETE = $wordToComplete
-        condax | ForEach-Object {
-            $commandArray = $_ -Split ":::"
-            $command = $commandArray[0]
-            $helpString = $commandArray[1]
-            [System.Management.Automation.CompletionResult]::new(
-                $command, $command, 'ParameterValue', $helpString)
-        }
-        $Env:_CONDAX_COMPLETE = ""
-        $Env:_TYPER_COMPLETE_ARGS = ""
-        $Env:_TYPER_COMPLETE_WORD_TO_COMPLETE = ""
-    }
-    Register-ArgumentCompleter -Native -CommandName condax -ScriptBlock $scriptblock
+    Remove-Variable PSReadlineOptions
 }
 
 If ($host.Name -eq 'ConsoleHost') {
@@ -75,19 +55,31 @@ If ($host.Name -eq 'ConsoleHost') {
     Import-Module -Name VimTabCompletion, DirColors, posh-git
     Update-DirColors ~\.dircolors
 
-    # Starship-profile is installation specific, so run once:
+    $completionPath = "$env:PROFILEDIR/completion"
     # & starship init powershell --print-full-init |
-    # Out-File -Encoding utf8 -Path $env:PROFILEDIR\starship-profile.ps1
-    . $env:PROFILEDIR/starship-profile
-    . $env:PROFILEDIR/uvShellCompletion
+    #   Out-File -Encoding utf8 -Path $env:PROFILEDIR\completion\starship-profile.ps1
+    . "$completionPath/starship-profile"
+
+    # & uv self update
+    # & uv generate-shell-completion powershell |
+    #   Out-File -Encoding utf8 -Path $env:PROFILEDIR\completion\uvShellCompletion.ps1
+    . "$completionPath/uvShellCompletion"
+
+    # condax completion
+    # Modified from `condax --show-completion`
+    # Delete PSReadLine settings.
+    # $array = & condax --show-completion
+    # $array[2..($array.Length-1)] |
+    #   Out-File -Encoding utf8 -Path $env:PROFILEDIR\completion\condaxCompletion.ps1
+    . "$completionPath/condaxCompletion"
 
     # PSBashCompletions
     if (($Null -ne (Get-Command bash -ErrorAction Ignore)) -or ($Null -ne (Get-Command git -ErrorAction Ignore))) {
         Import-Module PSBashCompletions
         $completionPath = "$env:PROFILEDIR/bash-completion"
         Register-BashArgumentCompleter pandoc "$completionPath/pandoc-completion.sh"
-        Register-BashArgumentCompleter pipx "$completionPath/pipx_completion.sh"
     }
+    Remove-Variable completionPath, scriptblock
 }
 
 
