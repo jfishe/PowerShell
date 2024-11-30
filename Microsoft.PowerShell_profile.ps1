@@ -47,6 +47,8 @@ If ($host.Name -eq 'ConsoleHost') {
         grep = '--color=auto'
     }
     Import-WslCommand "less", "ls", "grep", "tree", "diff"
+
+    Import-Module git-aliases -DisableNameChecking
 }
 
 If ($host.Name -eq 'ConsoleHost') {

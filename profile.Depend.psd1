@@ -3,6 +3,7 @@
         AddToPath = $false
         Target    = 'CurrentUser'
     }
+    'git-aliases'     = 'latest'
     'posh-git'        = 'latest'
     DirColors         = 'latest'
     Plaster           = 'latest'
