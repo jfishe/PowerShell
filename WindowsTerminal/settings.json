@@ -28,9 +28,12 @@
             "keys": "ctrl+shift+f"
         }
     ],
+    "alwaysShowTabs": true,
+    "centerOnLaunch": true,
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+    "launchMode": "maximized",
     "newTabMenu":
     [
         {
@@ -144,5 +147,7 @@
         }
     ],
     "theme": "system",
-    "themes": []
+    "showTabsInTitlebar": false,
+    "themes": [],
+    "windowingBehavior": "useExisting"
 }
