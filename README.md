@@ -42,6 +42,15 @@ choco install powershell-core `
 
 ## Windows Terminal
 
+`WindowsTerminal` does not distinguish
+`Shift+Enter` (`\u001b[13;2u`) or
+`Ctrl+Enter` (`\u001b[13;5u`), and
+reserves `Alt+Enter` for `Toggle fullscreen`.
+[Reddit user desgreech posted a solution to r/neovim](https://www.reddit.com/r/neovim/comments/14rwpi2/windows_terminal_ccr_keymap_not_working/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+using `sendInput`.
+The `JSON` schema splits actions and keys now,
+so modify the solution accordingly in `settings.json`.
+
 ### Windows Terminal Preview
 
 ```powershell
@@ -58,3 +67,7 @@ $SettingsJSON = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_*\LocalSta
 links `$SettingsJSON` to
 [WindowsTerminal\settings.json](WindowsTerminal\settings.json), saving the
 current `settings.json` as `settings.json.bak`.
+
+### WindowsTerminal JSON Fragment Extensions
+
+- [Windows Terminal Json Fragment Extensions](https://learn.microsoft.com/en-us/windows/terminal/json-fragment-extensions)
