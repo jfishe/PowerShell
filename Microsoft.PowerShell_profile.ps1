@@ -60,7 +60,7 @@ If ($host.Name -eq 'ConsoleHost') {
     . "$completionPath/Profile.Completions"
 
     # & starship init powershell --print-full-init |
-    #   Out-File -Encoding utf8 -Path $env:PROFILEDIR\completion\starship-profile.ps1
+    #   Out-File -Encoding utf8 -Path "$completionPath\starship-profile.ps1"
     if (Get-Command 'starship' -ErrorAction SilentlyContinue) {
         # Update-DirColors ~\.dircolors
         # Copy $Env:LS_COLORS to User Environment.
