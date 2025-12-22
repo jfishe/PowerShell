@@ -72,7 +72,7 @@ If ($host.Name -eq 'ConsoleHost') {
                 Import-Module -Name DirColors -Global -DisableNameChecking
                 Import-Module -Global -DisableNameChecking -Name posh-git, git-aliases
 
-                Initialize-Profile
+                # Initialize-Profile
             }
         }
         # Invoke-Expression (&starship init powershell)
