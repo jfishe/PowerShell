@@ -57,27 +57,24 @@ If ($host.Name -eq 'ConsoleHost') {
 If ($host.Name -eq 'ConsoleHost') {
     $env:PROFILEDIR = Split-Path $PROFILE
     $completionPath = "$env:PROFILEDIR\Completions"
-    . "$completionPath/Profile.Completions"
+    . "$PSScriptRoot/Completions/Profile.Completions"
 
-    # & starship init powershell --print-full-init |
-    #   Out-File -Encoding utf8 -Path "$completionPath\starship-profile.ps1"
     if (Get-Command 'starship' -ErrorAction SilentlyContinue) {
-        # Update-DirColors ~\.dircolors
-        # Copy $Env:LS_COLORS to User Environment.
+        # & starship init powershell --print-full-init |
+        #   Out-File -Encoding utf8 -Path "Profile.Starship.ps1"
 
         function Invoke-Starship-PreCommand {
             if ($global:profile_initialized -ne $true) {
                 $global:profile_initialized = $true
 
+                # Update-DirColors ~\.dircolors
+                # Copy $Env:LS_COLORS to User Environment.
                 Import-Module -Name DirColors -Global -DisableNameChecking
-                Import-Module -Global -DisableNameChecking -Name posh-git, git-aliases
 
-                # Initialize-Profile
+                Import-Module -Global -DisableNameChecking -Name posh-git, git-aliases
             }
         }
         # Invoke-Expression (&starship init powershell)
-        . "$completionPath/starship-profile"
+        . "$PSScriptRoot/Profile.Starship.ps1"
     }
-
-    Remove-Variable completionPath
 }
