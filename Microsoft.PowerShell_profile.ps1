@@ -56,7 +56,7 @@ If ($host.Name -eq 'ConsoleHost') {
 
 If ($host.Name -eq 'ConsoleHost') {
     $env:PROFILEDIR = Split-Path $PROFILE
-    $completionPath = "$env:PROFILEDIR\Completions"
+
     . "$PSScriptRoot/Completions/Profile.Completions"
 
     if (Get-Command 'starship' -ErrorAction SilentlyContinue) {
