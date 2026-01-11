@@ -37,7 +37,7 @@ Set-Alias -Name:"ls" -Value:"Invoke-Eza" -Description:"Plain eza call"
 Set-Alias -Name:"which" -Value:"_which" -Description:"Get-Command -All <command>"
 
 Function _history {
-    Get-Content (Get-PSReadLineOption).HistorySavePath | bat --language powershell
+    bat --language powershell (Get-PSReadLineOption).HistorySavePath
 }
 
 Function _which {
