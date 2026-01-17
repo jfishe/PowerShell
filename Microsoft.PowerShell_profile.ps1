@@ -26,7 +26,7 @@ If ($host.Name -eq 'ConsoleHost') {
     Remove-Variable PSReadlineOptions
 }
 
-If ($host.Name -eq 'ConsoleHost') {. $PSScriptRoot/Alias}
+If ($host.Name -eq 'ConsoleHost') {. "$PSScriptRoot/Alias"}
 
 If ($host.Name -eq 'ConsoleHost') {
     $env:PROFILEDIR = Split-Path $PROFILE
