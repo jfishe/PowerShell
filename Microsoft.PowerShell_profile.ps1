@@ -26,7 +26,7 @@ If ($host.Name -eq 'ConsoleHost') {
     Remove-Variable PSReadlineOptions
 }
 
-If ($host.Name -eq 'ConsoleHost') {. "$PSScriptRoot/Alias"}
+If ($host.Name -eq 'ConsoleHost') { . "$PSScriptRoot/Alias" }
 
 If ($host.Name -eq 'ConsoleHost') {
     $env:PROFILEDIR = Split-Path $PROFILE
@@ -47,6 +47,13 @@ If ($host.Name -eq 'ConsoleHost') {
 
                 Import-Module -Global -DisableNameChecking -Name posh-git, git-aliases
             }
+            # # https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#powershell-with-starship
+            # $loc = $executionContext.SessionState.Path.CurrentLocation;
+            # $prompt = "$([char]27)]9;12$([char]7)"
+            # if ($loc.Provider.Name -eq "FileSystem") {
+            #     $prompt += "$([char]27)]9;9;`"$($loc.ProviderPath)`"$([char]27)\"
+            # }
+            # $host.ui.Write($prompt)
         }
         # Invoke-Expression (&starship init powershell)
         . "$PSScriptRoot/Profile.Starship.ps1"

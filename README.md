@@ -71,3 +71,13 @@ current `settings.json` as `settings.json.bak`.
 ### WindowsTerminal JSON Fragment Extensions
 
 - [Windows Terminal Json Fragment Extensions](https://learn.microsoft.com/en-us/windows/terminal/json-fragment-extensions)
+
+### Opening a tab or pane in the same directory
+
+[Tutorial: Opening a tab or pane in the same directory in Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#powershell-with-starship)
+enables `duplicateTab` and `splitPane` to open in the current directory.
+
+WindowsTerminal default `commandline` for `wsl` includes `--cd ~`,
+which overrides the current directory.
+Setting `"startingDirectory": "~"` opens in `$HOME`,
+when `OSC9;9;` is not set to current directory.
