@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 1.0
+.VERSION 2.0
 
 .GUID b998381b-af98-49e9-ac84-098576bb90a4
 
@@ -23,10 +23,13 @@
 #>
 
 <#
-
 .DESCRIPTION
  Alias File
 
+.EXAMPLE
+ PS> Get-FormatData -TypeName 'System.Management.Automation.AliasInfo' |
+     Export-FormatData -LiteralPath .\Formats\AliasInfo_sys.ps1xml
+ Copy AliasInfo to add Description field.
 #>
 
 Set-Alias -Name:"history" -Value:"_history" -Description:"Show PSReadline command history file with pager by less"
@@ -35,6 +38,11 @@ Set-Alias -Name:"la" -Value:"Invoke-Eza" -Description:"List all files (except . 
 Set-Alias -Name:"ll" -Value:"Invoke-Eza" -Description:"List files as a long list"
 Set-Alias -Name:"ls" -Value:"Invoke-Eza" -Description:"Plain eza call"
 Set-Alias -Name:"which" -Value:"_which" -Description:"Get-Command -All <command>"
+
+$null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCount 1 -Action {
+    # Update-FormatData -PrependPath "$env:OneDrive\ScriptData\Powershell\Formats\MergedFormats\formats.ps1xml"
+    Update-FormatData -PrependPath "$env:PROFILEDIR\Formats\AliasInfo.ps1xml"
+}
 
 Function _history {
     bat --language powershell (Get-PSReadLineOption).HistorySavePath
@@ -64,15 +72,15 @@ Function Invoke-Eza {
             https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/eza
         #>
     $Config = @(
-        "--group-directories-first", # list directories before other files
-        "--git", # list each file's Git status, if tracked or ignored
-        "--header", # add a header row to each column
-        "--icons=auto", # when to display icons (always, auto, never)
-        "--hyperlink", # display entries as hyperlinks
+        '--group-directories-first', # list directories before other files
+        '--git', # list each file's Git status, if tracked or ignored
+        '--header', # add a header row to each column
+        '--icons=auto', # when to display icons (always, auto, never)
+        '--hyperlink', # display entries as hyperlinks
         # how to format timestamps (default, iso, long-iso,
         # full-iso, relative, or a custom style '+<FORMAT>'
         # like '+%Y-%m-%d %H:%M')
-        "--time-style=iso"
+        '--time-style=iso'
     )
     $Parameters = @{
         lD = @('-laD')
