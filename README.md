@@ -5,8 +5,8 @@
 `Install-Profile` installs module `PSDepend` and uses `Invoke-PSDepend` to
 install the modules in [`profile.Depend.psd1`](profile.Depend.psd1).
 
-[Starship: Cross-Shell Prompt](https://starship.rs/) works well in zsh,
-powershell and pwsh.
+[Starship: Cross-Shell Prompt](https://starship.rs/) works well in Z-Shell,
+PowerShell and PowerShell Core.
 
 ```powershell
 # Assume Documents\PowerShell does not exist.
