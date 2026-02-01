@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 2.0
+.VERSION 2.1
 
 .GUID b998381b-af98-49e9-ac84-098576bb90a4
 
@@ -29,8 +29,22 @@
 .EXAMPLE
  PS> Get-FormatData -TypeName 'System.Management.Automation.AliasInfo' |
      Export-FormatData -LiteralPath .\Formats\AliasInfo_sys.ps1xml
- Copy AliasInfo to add Description field.
+ On PS 6+, Copy AliasInfo to add Description field.
 #>
+
+
+if ($PSVersionTable.PSVersion.Major -lt 6) {
+    # Enable git-scm Linux ports
+    Remove-Item -Force  -ErrorAction SilentlyContinue -Path alias:\* `
+        -Include less, ls, grep, tree, diff, history
+} else {
+    $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' `
+        -MaxTriggerCount 1 -Action {
+        # Update-FormatData -PrependPath "$env:OneDrive\ScriptData\Powershell\Formats\MergedFormats\formats.ps1xml"
+        Update-FormatData -PrependPath "$env:PROFILEDIR\Formats\AliasInfo.ps1xml"
+    }
+
+}
 
 Set-Alias -Name:"history" -Value:"_history" -Description:"Show PSReadline command history file with pager by less"
 Set-Alias -Name:"lD" -Value:"Invoke-Eza" -Description:"List only directories (excluding dotdirs) as a long list"
@@ -38,11 +52,6 @@ Set-Alias -Name:"la" -Value:"Invoke-Eza" -Description:"List all files (except . 
 Set-Alias -Name:"ll" -Value:"Invoke-Eza" -Description:"List files as a long list"
 Set-Alias -Name:"ls" -Value:"Invoke-Eza" -Description:"Plain eza call"
 Set-Alias -Name:"which" -Value:"_which" -Description:"Get-Command -All <command>"
-
-$null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' -MaxTriggerCount 1 -Action {
-    # Update-FormatData -PrependPath "$env:OneDrive\ScriptData\Powershell\Formats\MergedFormats\formats.ps1xml"
-    Update-FormatData -PrependPath "$env:PROFILEDIR\Formats\AliasInfo.ps1xml"
-}
 
 Function _history {
     bat --language powershell (Get-PSReadLineOption).HistorySavePath
