@@ -37,26 +37,37 @@
 .DESCRIPTION
  Compare average duration with and without Profile.
 
+ 'Profile + prompt' also renders the prompt once, so work deferred to the
+ first prompt (starship PreCommand and render) is included.
+
+.PARAMETER Count
+ Number of pwsh launches per case.
+
 #>
-Param()
+Param(
+    [ValidateRange(1, 1000)]
+    [int]$Count = 20
+)
 
-$p = 0
-1..100 | ForEach-Object {
-    Write-Progress -Id 1 -Activity 'pwsh' -PercentComplete $_
-    $p += (Measure-Command {
-        pwsh -noprofile -command 1
-    }).TotalMilliseconds
+$cases = [ordered]@{
+    'NoProfile'        = { pwsh -NoProfile -Command 1 }
+    'Profile'          = { pwsh -Command 1 2>$null }
+    'Profile + prompt' = { pwsh -Command '$null = prompt' 2>$null }
 }
-Write-Progress -id 1 -Activity 'profile' -Completed
-$p = $p/100
-Write-Output "$p Milliseconds"
 
-$a = 0
-1..100 | ForEach-Object {
-    Write-Progress -Id 1 -Activity 'profile' -PercentComplete $_
-    $a += (Measure-Command {
-        pwsh -command 1
-    }).TotalMilliseconds
+$results = foreach ($case in $cases.GetEnumerator()) {
+    $times = 1..$Count | ForEach-Object {
+        Write-Progress -Id 1 -Activity $case.Key -PercentComplete (100 * $_ / $Count)
+        (Measure-Command $case.Value).TotalMilliseconds
+    }
+    Write-Progress -Id 1 -Activity $case.Key -Completed
+    $sorted = $times | Sort-Object
+    [PSCustomObject]@{
+        Case     = $case.Key
+        MeanMs   = [math]::Round(($times | Measure-Object -Average).Average)
+        MedianMs = [math]::Round($sorted[[int][math]::Floor(($Count - 1) / 2)])
+    }
 }
-Write-Progress -id 1 -activity 'profile' -Completed
-Write-Output "$($a/100 - $p) Milliseconds Profile"
+
+$baseline = $results[0].MeanMs
+$results | Select-Object *, @{ Name = 'OverheadMs'; Expression = { $_.MeanMs - $baseline } }
