@@ -9,7 +9,7 @@
 
 .COMPANYNAME John D. Fisher
 
-.COPYRIGHT 2025 John D. Fisher
+.COPYRIGHT 2025-2026 John D. Fisher
 
 .TAGS
     alias
