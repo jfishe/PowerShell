@@ -47,7 +47,7 @@ If ($UserInteractive) {
     Set-PSReadLineKeyHandler -Key 'Ctrl+w' -Function BackwardDeleteWord
     Set-PSReadLineKeyHandler -Key 'Ctrl+Spacebar' -Function MenuComplete
     # Default Yellow/Cyan is low contrast
-    $Host.PrivateData.ProgressForegroundColor = [ConsoleColor]::Red
+    # $Host.PrivateData.ProgressForegroundColor = [ConsoleColor]::Red
 
     Remove-Variable PSReadlineOptions
 }
@@ -59,27 +59,40 @@ If ($UserInteractive) {
 
     . "$PSScriptRoot/Completions/Profile.Completions"
 
+    # posh-git is only used for completion (starship draws the prompt), so
+    # import it on the first git <Tab>; importing re-registers its completer.
+    Register-ArgumentCompleter -Native -CommandName git, tgit, gitk -ScriptBlock {
+        param($wordToComplete, $commandAst, $cursorPosition)
+        Import-Module -Name posh-git -Global
+        # Same padding as posh-git's completer: Expand-GitCommand expects the
+        # trailing space that completion strips.
+        $padLength = $cursorPosition - $commandAst.Extent.StartOffset
+        Expand-GitCommand $commandAst.ToString().PadRight($padLength, ' ').Substring(0, $padLength)
+    }
+
     if (Get-Command 'starship' -ErrorAction SilentlyContinue) {
 
-        function Invoke-Starship-PreCommand {
-            if ($global:profile_initialized -ne $true) {
-                $global:profile_initialized = $true
-
-                # LS_COLORS comes from ~\.dircolors via Update-TintyColors.
-                Import-Module -Name DirColors -Global -DisableNameChecking
-                # DirColors colors any non-link reparse point as a block device
-                # (BLK 33;44, unreadable). OneDrive items are reparse points, so
-                # drop that fallback and classify them as normal files/dirs.
-                & (Get-Module DirColors) {
-                    $src = ${function:Get-ColorCode}.ToString()
-                    $patched = $src -replace '(?m)^\s*Return \$script:DirColors\.BlockDevice\s*$', ''
-                    if ($patched -ne $src) {
-                        Set-Item function:script:Get-ColorCode ([scriptblock]::Create($patched))
-                    }
+        # Deferred until PSReadLine is idle so the first prompt is not blocked.
+        $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' `
+            -MaxTriggerCount 1 -Action {
+            # LS_COLORS comes from ~\.dircolors via Update-TintyColors.
+            Import-Module -Name DirColors -Global -DisableNameChecking
+            # DirColors colors any non-link reparse point as a block device
+            # (BLK 33;44, unreadable). OneDrive items are reparse points, so
+            # drop that fallback and classify them as normal files/dirs.
+            & (Get-Module DirColors) {
+                $src = ${function:Get-ColorCode}.ToString()
+                $patched = $src -replace '(?m)^\s*Return \$script:DirColors\.BlockDevice\s*$', ''
+                if ($patched -ne $src) {
+                    Set-Item function:script:Get-ColorCode ([scriptblock]::Create($patched))
                 }
-
-                Import-Module -Global -DisableNameChecking -Name posh-git, git-aliases
             }
+            Update-TintyColors
+
+            Import-Module -Global -DisableNameChecking -Name git-aliases
+        }
+
+        function Invoke-Starship-PreCommand {
             Update-TintyColors
             # # https://learn.microsoft.com/en-us/windows/terminal/tutorials/new-tab-same-directory#powershell-with-starship
             # Prompt marks (OSC 133) are emitted by the prompt wrapper below.
