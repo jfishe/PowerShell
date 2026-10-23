@@ -59,17 +59,6 @@ If ($UserInteractive) {
 
     . "$PSScriptRoot/Completions/Profile.Completions"
 
-    # posh-git is only used for completion (starship draws the prompt), so
-    # import it on the first git <Tab>; importing re-registers its completer.
-    Register-ArgumentCompleter -Native -CommandName git, tgit, gitk -ScriptBlock {
-        param($wordToComplete, $commandAst, $cursorPosition)
-        Import-Module -Name posh-git -Global
-        # Same padding as posh-git's completer: Expand-GitCommand expects the
-        # trailing space that completion strips.
-        $padLength = $cursorPosition - $commandAst.Extent.StartOffset
-        Expand-GitCommand $commandAst.ToString().PadRight($padLength, ' ').Substring(0, $padLength)
-    }
-
     if (Get-Command 'starship' -ErrorAction SilentlyContinue) {
 
         # Deferred until PSReadLine is idle so the first prompt is not blocked.
