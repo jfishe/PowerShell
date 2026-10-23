@@ -12,7 +12,7 @@
 
 .TAGS
 
-.LICENSEURI https://github.com/jfishe/PowerShell/blob/master/LICENSE
+.LICENSEURI https://github.com/jfishe/PowerShell/blob/main/LICENSE
 
 .PROJECTURI
 

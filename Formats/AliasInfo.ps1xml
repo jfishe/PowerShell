@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Derived from the built-in System.Management.Automation.AliasInfo view
+     (Get-FormatData | Export-FormatData), PowerShell, MIT License,
+     Copyright (c) Microsoft Corporation. Adds the Description field. -->
 <Configuration>
   <ViewDefinitions>
     <View>

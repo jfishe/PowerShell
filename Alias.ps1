@@ -77,12 +77,10 @@ Function Invoke-Eza {
         .SYNOPSIS
             eza a modern alternative to ls with selected configuration and aliases.
         .DESCRIPTION
-            eza is a modern alternative for the venerable file-listing
-            command-line program ls that ships with Unix and Linux operating
-            systems, giving it more features and better defaults. It uses
-            colours to distinguish file types and metadata. It knows about
-            symlinks, extended attributes, and Git. And it’s small, fast, and
-            just one single binary.
+            Wrap eza, an ls replacement, with a shared configuration:
+            directories first, Git status, a header row, icons, hyperlinks
+            and ISO timestamps. The alias used to invoke it (lD, la, ll, ls)
+            selects the listing options.
         .LINK
             https://eza.rocks/
         .LINK

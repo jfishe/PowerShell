@@ -36,10 +36,6 @@ The profile only configures interactive `ConsoleHost` sessions;
 - [`Alias.ps1`](Alias.ps1): aliases and alias-like functions.
 - `DirColors` and `git-aliases` are imported once PSReadLine is idle
   (`PowerShell.OnIdle`); `posh-git` is imported on the first `git <Tab>`.
-- [`Profiler/`](Profiler/):
-  - `Measure-Profile.ps1` times profile load and first prompt
-    ([Optimizing your $Profile](https://devblogs.microsoft.com/pwsh/optimizing-your-profile/));
-  - `Get-ArgumentCompleter.ps1` lists registered argument completers.
 
 ## Starship Prompt
 
@@ -121,3 +117,8 @@ describes the Microsoft recommended method.
 ```powershell
 winget install --id Microsoft.PowerShell
 ```
+
+## License
+
+[MIT](LICENSE). Third-party material is credited in
+[`THIRD-PARTY-NOTICES.md`](THIRD-PARTY-NOTICES.md).
