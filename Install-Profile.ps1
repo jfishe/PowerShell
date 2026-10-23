@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.2
+.VERSION 1.3
 
 .GUID 88708b51-21f2-4ff8-8b9c-9df11578d0a9
 
@@ -86,7 +86,7 @@ if (!(Get-PackageProvider -Name 'NuGet')) {
 }
 
 Write-Output "Install/Import Profile-Dependent Modules"
-$PSDependVersion = '0.3.8'
+$PSDependVersion = '0.6.0'
 if (!(Get-InstalledModule -Name 'PSDepend' -RequiredVersion $PSDependVersion `
             -ErrorAction 'SilentlyContinue')) {
     Install-Module -Name 'PSDepend' -RequiredVersion $PSDependVersion -Force `
