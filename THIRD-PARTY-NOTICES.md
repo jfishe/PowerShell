@@ -54,9 +54,10 @@ installed separately.
 
 ## Removing old module versions
 
-`moduleclean.ps1` is modified from Jack Fruh's
+The idea for `moduleclean.ps1` came from Jack Fruh's
 [Powershell script to remove duplicate, old modules][fruh]. The post states no
-license.
+license. The current script is an independent rewrite and contains none of
+the post's code.
 
 ## Completions submodule
 
