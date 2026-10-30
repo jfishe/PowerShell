@@ -20,11 +20,11 @@ If ($UserInteractive) {
     }
     Set-PSReadLineOption @PSReadlineOptions
 
-    # Colors are written by tinty hooks in WSL: Profile.Tinty.ps1
+    # Colors are written by tinty hooks in WSL: ~\.config\tinted-theming\Profile.Tinty.ps1
     # (tinted-psreadline) and ~\.dircolors (tinted-dircolors). Reloaded from
     # the prompt when they change, so `tinty apply` recolors open sessions.
     $global:__TintyFiles = @{
-        PSReadLine = Join-Path $PSScriptRoot 'Profile.Tinty.ps1'
+        PSReadLine = Join-Path $HOME '.config/tinted-theming/Profile.Tinty.ps1'
         DirColors  = Join-Path $HOME '.dircolors'
     }
     $global:__TintyStamps = @{}
