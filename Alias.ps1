@@ -1,7 +1,7 @@
 
 <#PSScriptInfo
 
-.VERSION 2.2
+.VERSION 2.3
 
 .GUID b998381b-af98-49e9-ac84-098576bb90a4
 
@@ -38,7 +38,7 @@ if ($PSVersionTable.PSVersion.Major -lt 6) {
     Remove-Item -Force  -ErrorAction SilentlyContinue -Path alias:\* `
         -Include less, ls, grep, tree, diff, history
 } else {
-    Remove-Alias -Name history
+    Remove-Alias -Force -Name history, diff
     $null = Register-EngineEvent -SourceIdentifier 'PowerShell.OnIdle' `
         -MaxTriggerCount 1 -Action {
         # Update-FormatData -PrependPath "$env:OneDrive\ScriptData\Powershell\Formats\MergedFormats\formats.ps1xml"
